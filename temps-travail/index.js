@@ -18,6 +18,8 @@ function calculateDepartureTime() {
         return;
     }
 
+    times[2] = enforceMinimalLunchTime(times[1], times[2]);
+
     let totalMorningMinutes = calculateDifferenceMinutes(times[0], times[1]);
     let remainingMinutes = workTimeMinutes - totalMorningMinutes;
     let departureTime = calculateTimeAfter(times[2], remainingMinutes);
@@ -48,4 +50,10 @@ function calculateTimeAfter(time1, minutes) {
     let mins = date.getMinutes();
 
     return (hours < 10 ? '0' : '') + hours + ':' + (mins < 10 ? '0' : '') + mins;
+}
+
+function enforceMinimalLunchTime(time1, time2) {
+    let break_duration = calculateDifferenceMinutes(time1, time2);
+
+    return break_duration < 45 ?  calculateTimeAfter(time1, 45) : time2
 }
