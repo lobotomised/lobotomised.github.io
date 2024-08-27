@@ -1,9 +1,9 @@
 function calculateDepartureTime() {
     let workTimeMinutes = 7 * 60 + 13;
 
-    let workTimeDelta = document.getElementById('dayWorkTimeDelta').value;
+    let workTimeDelta = document.getElementById('dayWorkTimeDelta').value.trim()
     if (workTimeDelta) {
-        workTimeMinutes -= workTimeDelta * 60;
+        workTimeMinutes -= parseTimeDelta(workTimeDelta);
     }
 
     let textareaTimes = document.getElementById('timeTextarea').value.trim().split('\n');
@@ -25,6 +25,19 @@ function calculateDepartureTime() {
     let departureTime = calculateTimeAfter(times[2], remainingMinutes);
 
     document.getElementById('departureTime').textContent = 'Heure de départ : ' + departureTime;
+}
+
+function parseTimeDelta(delta) {
+    // Vérifie le signe + ou -
+    let sign = delta.startsWith('-') ? -1 : 1;
+
+    // Enlève le signe et sépare les heures et minutes
+    let time = delta.slice(1).split(':');
+    let hours = parseInt(time[0], 10);
+    let minutes = parseInt(time[1], 10);
+
+    // Convertit tout en minutes et applique le signe
+    return sign * (hours * 60 + minutes);
 }
 
 function calculateDifferenceMinutes(time1, time2) {
