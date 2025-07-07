@@ -1,4 +1,8 @@
 function calculateDepartureTime() {
+    const timeTextareaEl = document.getElementById('timeTextarea');
+    const todayKey = 'timeTextarea-' + new Date().toISOString().slice(0, 10);
+    localStorage.setItem(todayKey, timeTextareaEl.value.trim());
+
     let workTimeMinutes = 7 * 60 + 13;
 
     let workTimeDelta = document.getElementById('dayWorkTimeDelta').value.trim()
@@ -6,8 +10,8 @@ function calculateDepartureTime() {
         workTimeMinutes -= parseTimeDelta(workTimeDelta);
     }
 
-    let textareaTimes = document.getElementById('timeTextarea').value.trim().split('\n');
-    let times = textareaTimes.length === 3 ? textareaTimes : [
+    let textareaTimes = timeTextareaEl.value.trim().split('\n');
+    let times = textareaTimes.length === 3 && textareaTimes.every(t => t.includes(':')) ? textareaTimes : [
         document.getElementById('startMorning').value,
         document.getElementById('endMorning').value,
         document.getElementById('startAfternoon').value,
@@ -70,3 +74,12 @@ function enforceMinimalLunchTime(time1, time2) {
 
     return break_duration < 45 ?  calculateTimeAfter(time1, 45) : time2
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+    const todayKey = 'timeTextarea-' + new Date().toISOString().slice(0, 10);
+    const storedValue = localStorage.getItem(todayKey);
+    if (storedValue) {
+        document.getElementById('timeTextarea').value = storedValue;
+        calculateDepartureTime();
+    }
+});
