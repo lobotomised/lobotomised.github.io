@@ -5,40 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculateur d'heure de départ</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="index.js" async></script>
+    <script src="index.js" defer></script>
 </head>
 <body class="antialiased text-slate-500 p-6">
 <div class="max-w-lg mx-auto">
     <h1 class="font-bold text-2xl">Calcule de temps de travail</h1>
 
     <p class="mt-8 mb-4">Calcule horaire sur la base d'une journée de 7h13</p>
-    
+
     <form id="work-time-calculation" class="flex flex-col gap-4">
         <div>
             <label for="startMorning">Heure d'arrivée le matin (ex : 8:00)&nbsp;:</label>
             <input type="text" id="startMorning" class="p-2 border-b">
         </div>
-    
+
         <div>
             <label for="endMorning">Fin de la matinée (ex : 12:00)&nbsp;:</label>
             <input type="text" id="endMorning" class="p-2 border-b">
         </div>
-    
+
         <div>
             <label for="startAfternoon">Debut de l'après-midi (ex : 13:00)&nbsp;:</label>
             <input type="text" id="startAfternoon" class="p-2 border-b">
         </div>
-    
+
         <div>
             <label for="timeTextarea">Coller le bloc d'horaire&nbsp;:</label>
             <textarea id="timeTextarea" rows="3" class="border p-2 rounded"></textarea>
         </div>
-    
+
         <div>
             <label for="dayWorkTimeDelta">Crédit à appliquer (en heure, ex : +1.15)&nbsp;:</label>
             <input type="text" id="dayWorkTimeDelta" class="p-2 border-b">
         </div>
-    
+
         <div class="mt-2">
             <button type="button" onclick="calculateDepartureTime()" class="px-2 py-1 bg-gray-800 text-white rounded-md">Calculer l'heure de départ</button>
         </div>
